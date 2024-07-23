@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Web based File Manager in PHP, Manage your files efficiently and easily with Tiny File Manager">
+    <meta name="author" content="CCP Programmers">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex">
+    <?php if($favicon_path) { echo '<link rel="icon" href="'.fm_enc($favicon_path).'" type="image/png">'; } ?>
+    <title><?php echo fm_enc(APP_TITLE) ?></title>
+    <?php print_external('pre-jsdelivr'); ?>
+    <?php print_external('css-bootstrap'); ?>
+    <style>
+	
+	
+	body.fm-login-page{font-size:14px; width="1280" height="768";background-image:url("./IMG/Background.jpg");background-repeat: no-repeat center center fixed;background-size: 100%;}
+      <!--  body.fm-login-page{ background-color:#f7f9fb;font-size:14px;background-color:#f7f9fb;background-image:url("./IMG/Background.jpg");}
+        .fm-login-page .brand{ width:121px;overflow:hidden;margin:0 auto;position:relative;z-index:1}
+        .fm-login-page .brand img{width:100%}
+        .fm-login-page .card-wrapper{ width:360px;margin-top:10%;margin-left:auto;margin-right:auto;}
+        .fm-login-page .card{ border-color:transparent;box-shadow:0 4px 8px rgba(0,0,0,.05)}
+        .fm-login-page .card-title{ margin-bottom:1.5rem;font-size:24px;font-weight:400;}
+        .fm-login-page .form-control{ border-width:2.3px}
+        .fm-login-page .form-group label{ width:100%}
+        .fm-login-page .btn.btn-block{ padding:12px 10px}
+        .fm-login-page .footer{ margin:40px 0;color:#888;text-align:center}
+        @media screen and (max-width:425px){
+            .fm-login-page .card-wrapper{ width:90%;margin:0 auto;margin-top:10%;}
+        }
+        @media screen and (max-width:320px){
+            .fm-login-page .card.fat{ padding:0}
+            .fm-login-page .card.fat .card-body{ padding:15px}
+        }
+        .message{ padding:4px 7px;border:1px solid #ddd;background-color:#fff}
+        .message.ok{ border-color:green;color:green}
+        .message.error{ border-color:red;color:red}
+        .message.alert{ border-color:orange;color:orange}
+        body.fm-login-page.theme-dark {background-color: #2f2a2a;}
+        .theme-dark svg g, .theme-dark svg path {fill: #ffffff; } -->
+    </style>
+</head>
+<body class="fm-login-page <?php echo (FM_THEME == "dark") ? 'theme-dark' : ''; ?>">
+<div id="wrapper" class="container-fluid">
+   
+      
+   
+</div>
+<?php print_external('js-jquery'); ?>
+<?php print_external('js-bootstrap'); ?>
+</body>
+</html>

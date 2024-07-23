@@ -1,0 +1,30 @@
+<div class="path">
+<meta charset="UTF-8">
+        <div class="card <?php echo fm_get_theme(); ?>">
+            <div class="card-header">
+                <h6><?php echo lng('Copying') ?></h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="post">
+                    <input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH) ?>">
+                    <input type="hidden" name="finish" value="1">
+                    <?php
+                    foreach ($copy_files as $cf) {
+                        echo '<input type="hidden" name="file[]" value="' . fm_enc($cf) . '">' . PHP_EOL;
+                    }
+                    ?>
+                    <p class="break-word"><strong><?php echo lng('Files') ?></strong>: <b><?php echo implode('</b>, <b>', $copy_files) ?></b></p>
+                    <p class="break-word"><strong><?php echo lng('SourceFolder') ?></strong>: <?php echo fm_enc(fm_convert_win(FM_ROOT_PATH . '/' . FM_PATH)) ?><br>
+                        <label for="inp_copy_to"><strong><?php echo lng('DestinationFolder') ?></strong>:</label>
+                        <?php echo FM_ROOT_PATH ?>/<input type="text" name="copy_to" id="inp_copy_to" value="<?php echo fm_enc(FM_PATH) ?>">
+                    </p>
+                    <p class="custom-checkbox custom-control"><input type="checkbox" name="move" value="1" id="js-move-files" class="custom-control-input"><label for="js-move-files" class="custom-control-label ms-2"> <?php echo lng('Move') ?></label></p>
+                    <p>
+                        <b><a href="?p=<?php echo urlencode(FM_PATH) ?>" class="btn btn-outline-danger"><i class="fa fa-times-circle"></i> <?php echo lng('Cancel') ?></a></b>&nbsp;
+                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-check-circle"></i> <?php echo lng('Copy') ?></button> 
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,81 @@
+
+    <?php print_external('css-dropzone'); ?>
+    <div class="path">
+	<meta charset="UTF-8">
+
+        <div class="card mb-2 fm-upload-wrapper <?php echo fm_get_theme(); ?>">
+            <div class="card-header">
+                <ul class="nav nav-tabs card-header-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#fileUploader" data-target="#fileUploader"><i class="fa fa-arrow-circle-o-up"></i> <?php echo lng('UploadingFiles') ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#urlUploader" class="js-url-upload" data-target="#urlUploader"><i class="fa fa-link"></i> <?php echo lng('Upload from URL') ?></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    <a href="?p=<?php echo FM_PATH ?>" class="float-right"><i class="fa fa-chevron-circle-left go-back"></i> <?php echo lng('Back')?></a>
+                    <strong><?php echo lng('DestinationFolder') ?></strong>: <?php echo fm_enc(fm_convert_win(FM_PATH)) ?>
+                </p>
+
+                <form action="<?php echo htmlspecialchars(FM_SELF_URL) . '?p=' . fm_enc(FM_PATH) ?>" class="dropzone card-tabs-container" id="fileUploader" enctype="multipart/form-data">
+                    <input type="hidden" name="p" value="<?php echo fm_enc(FM_PATH) ?>">
+                    <input type="hidden" name="fullpath" id="fullpath" value="<?php echo fm_enc(FM_PATH) ?>">
+                    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                    <div class="fallback">
+                        <input name="file" type="file" multiple/>
+                    </div>
+                </form>
+
+                <div class="upload-url-wrapper card-tabs-container hidden" id="urlUploader">
+                    <form id="js-form-url-upload" class="row row-cols-lg-auto g-3 align-items-center" onsubmit="return upload_from_url(this);" method="POST" action="">
+                        <input type="hidden" name="type" value="upload" aria-label="hidden" aria-hidden="true">
+                        <input type="url" placeholder="URL" name="uploadurl" required class="form-control" style="width: 80%">
+                        <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
+                        <button type="submit" class="btn btn-primary ms-3"><?php echo lng('Upload') ?></button>
+                        <div class="lds-facebook"><div></div><div></div><div></div></div>
+                    </form>
+                    <div id="js-url-upload__list" class="col-9 mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php print_external('js-dropzone'); ?>
+	<script>
+	Dropzone.options.fileUploader = {
+            chunking: true,
+            chunkSize: <?php echo UPLOAD_CHUNK_SIZE; ?>,
+            forceChunking: true,
+            retryChunks: true,
+            retryChunksLimit: 3,
+            parallelUploads: 1,
+            parallelChunkUploads: false,
+            timeout: 120000,
+            maxFilesize: "<?php echo MAX_UPLOAD_SIZE; ?>",
+            acceptedFiles : "<?php echo getUploadExt() ?>",
+            init: function () {
+                this.on("sending", function (file, xhr, formData) {
+                    let _path = (file.fullPath) ? file.fullPath : file.name;
+                    document.getElementById("fullpath").value = _path;
+                    xhr.ontimeout = (function() {
+                        toast('Error: Server Timeout');
+                    });
+                }).on("success", function (res) {
+                    try {
+                        let _response = JSON.parse(res.xhr.response);
+
+                        if(_response.status == "error") {
+                            toast(_response.info);
+                        }
+                    } catch (e) {
+                        toast("Error: Invalid JSON response");
+                    }
+                }).on("error", function(file, response) {
+                    toast(response);
+                });
+            }
+        }
+	</script>
+ 
