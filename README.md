@@ -20,7 +20,7 @@
 
 Tinyfilemanager is highly documented on the [wiki pages](https://github.com/prasathmani/tinyfilemanager/wiki).
 
-[![Tiny File Manager](screenshot.gif)](screenshot.gif)
+[![Tiny File Manager](screenshot.jpg)](screenshot.jpg)
 
 ## Requirements
 
